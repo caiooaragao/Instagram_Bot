@@ -4,8 +4,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from random import randint
 import time
-from bs4 import BeautifulSoup
-import requests
 from termcolor import colored
 
 
@@ -79,9 +77,7 @@ class InstaBot:
             if followButtons[btn+1].text in 'Seguindo' or 'Following' or 'Remove' or 'Remover':
                 print('allready following')
         print('you have followed:\n {}'.format(followedTargets))
-        '''with open('PerfisSeguidos', 'a') as arquivo:
-                    arquivo.write('seguindo o perfil: {}'.format(pic_hrefs[i]))
-                    arquivo.close()'''
+  
 
     def curtir_fotos_porHashTag(self, hashtag, numeroDeLikes):
         driver = self.driver
@@ -112,70 +108,3 @@ class InstaBot:
             except:
                 time.sleep(1)
                 print('could not locate like button :(')
-
-    def scrape_photos(self, target):
-        driver = self.driver
-        driver.get('https://www.instagram.com/{}/'.format(target))
-        time.sleep(2)
-        for i in range(1, 3):
-            # dar scroll 3 vezes nas publicaçoes da hashtag
-            driver.execute_script(
-                'window.scrollTo(0, document.body.scrollHeight);')
-            time.sleep(3)
-        time.sleep(2)
-        images = driver.find_elements(
-            By.TAG_NAME, 'img')
-
-        for image in images:
-            x = image.get_attribute('src')
-            print(x)
-
-        print('='*50)
-        time.sleep(5)
-        print(images)
-
-        print('='*50)
-
-        '''for image in images:
-            image_src = image.get_attribute('href')
-            image_list.append(image_src)
-            time.sleep(0.5)'''
-
-        '''for image in image_list:
-            wget.download(
-                image_list, '/Users/caioaragao/Documents/vscode/python/instaBot/downloaded_images')'''
-
-        print('download concluido')
-
-    def cancelar_seguidores():
-        with open('arquivo.txt', "r") as arquivo:
-            for line in arquivo:
-                perfil = line
-
-    def randomScript(self):
-        # python script to download instagram image
-        ''' ask user to input the instagram post url '''
-        link = input("Enter Instagram Image URL: ")
-
-        ''' 
-        create a webdriver chrome object by passing the path of "chromedriver.exe" file.(do not include .exe in the path).
-        '''
-        driver = webdriver.Chrome('chromedriver')
-
-        ''' Open the instagram post on your chrome browser'''
-        driver.get(link)
-
-        ''' Fetch the source file of the html page using BeautifulSoup'''
-        soup = BeautifulSoup(driver.page_source, 'lxml')
-
-        ''' Extract the url of the image from the source code'''
-        img = soup.find('img', class_='FFVAD')
-        img_url = img['src']
-
-        '''Download the image via the url using the requests library'''
-        r = requests.get(img_url)
-
-        with open("instagram"+str(time.time())+".png", 'wb') as f:
-            f.write(r.content)
-
-        print('success')
