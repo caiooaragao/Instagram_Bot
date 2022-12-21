@@ -46,4 +46,4 @@ while breaker == True:
                     user01.scrape_photos(target)
 
 
-'''caiobot = InstaBot('mymeme0x@gmail.com', 'mymeme1234!')'''
+
