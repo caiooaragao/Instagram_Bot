@@ -40,10 +40,7 @@ while breaker == True:
                         input('Digite quantas seguidas você quer dar'))
                     user01.seguir_target(contaEspecifica, numeroSeguidores)
 
-                if menuLogado == '3':
-                    target = input(
-                        'Digite o nome da conta que voce quer que tenha suas fotos baixadas')
-                    user01.scrape_photos(target)
+              
 
 
 
